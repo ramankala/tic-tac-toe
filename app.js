@@ -1,12 +1,14 @@
-const gameBoard = {
-    gBoard: function(){
-        let board = [(" ", " ", " "),
-                     (" ", " ", " "),
-                     (" ", " ", " ")];
+const gameBoard = (() => {
+    function createBoard(){
+
+        const board = [
+            (" ", " ", " "),
+            (" ", " ", " "),
+            (" ", " ", " ")
+        ]
+        console.log(board);
     }
-}();
+    return {createBoard};
+})();
 
-const Player = (name, symbol) =>{
-    return {name, symbol}
-}
-
+gameBoard.createBoard();
