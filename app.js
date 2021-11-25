@@ -9,7 +9,8 @@ const Player = (name, mark, isActive= false) => {
     return {name, mark, isActive, sayName};
 };
 
-const gameBoard = (() => {
+
+const game = (() => {
 
     const firstRow = document.createElement('div');
     firstRow.setAttribute("id", "firstRow");
@@ -21,11 +22,12 @@ const gameBoard = (() => {
     let squareDiv;
 
     const playerArr = [
-        Player("raman", "x")
+        Player("raman", "X"),
+        Player("namar", "O")
     ];
 
 
-    let board = [
+    let gameBoard = [
         (["X", "O", "X"]),
         (["X", "O", "O"]),
         (["O", "X", "O"])
@@ -44,7 +46,7 @@ const gameBoard = (() => {
 
 
 
-        board.forEach(function(item, index, array){
+        gameBoard.forEach(function(item, index, array){
             item.forEach(function(subitem, subindex, subarray){
                 
 
@@ -52,6 +54,8 @@ const gameBoard = (() => {
                 squareDiv.setAttribute("id", `squareDiv${index}${subindex}`);
                 squareDiv.textContent = subitem;
                 // console.log(squareDiv);
+
+                squareDiv.addEventListener('click', placeMarker);
 
                 renderRow(squareDiv);
 
@@ -65,6 +69,14 @@ const gameBoard = (() => {
         
 
     })();
+
+    function placeMarker(e){
+
+        const location = e.target.getAttribute(`id`).slice(9).split("");
+        gameBoard[location[0]][location[1]] = "X";
+        
+        
+    }
 
     function renderRow(div){
 
@@ -96,7 +108,7 @@ const gameBoard = (() => {
     // })
 
 
-return {board, playerArr, render};
+return {gameBoard, playerArr, render};
 })();
 
 
