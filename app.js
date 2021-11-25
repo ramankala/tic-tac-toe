@@ -1,8 +1,8 @@
 
 const Player = (name, mark, isActive= false) => {
-    const sayName = () => console.log(`my name is ${name} and my mark is ${mark}.`)
+    const sayName = () => console.log(`my name is ${name} and my mark is ${mark}.`);
 
-    toggle(){
+    const toggle = () => {
         isActive = !isActive;
     }
 
