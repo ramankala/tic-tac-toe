@@ -1,8 +1,12 @@
 
-const Player = (name, mark) => {
+const Player = (name, mark, isActive= false) => {
     const sayName = () => console.log(`my name is ${name} and my mark is ${mark}.`)
 
-    return {name, mark, sayName};
+    toggle(){
+        isActive = !isActive;
+    }
+
+    return {name, mark, isActive, sayName};
 };
 
 const gameBoard = (() => {
