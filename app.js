@@ -7,16 +7,26 @@ const Player = (name, mark) => {
 
 const gameBoard = (() => {
 
+    const firstRow = document.createElement('div');
+    firstRow.setAttribute("id", "firstRow");
+    const secondRow = document.createElement('div');
+    secondRow.setAttribute("id", "secondRow");
+    const thirdRow = document.createElement('div');
+    thirdRow.setAttribute("id", "thirdRow");
+
+    let squareDiv;
+
     const playerArr = [
         Player("raman", "x")
     ];
 
 
-    const board = [
-        (" ", " ", " "),
-        (" ", " ", " "),
-        (" ", " ", " ")
+    let board = [
+        (["X", "O", "X"]),
+        (["X", "O", "O"]),
+        (["O", "X", "O"])
     ]
+
 
 
     const displayController =(() => {
@@ -28,23 +38,63 @@ const gameBoard = (() => {
         // can toggle player active status
         // create attribute to toggle player's status, either here(most likely this) or in gameBoard
 
-        const container = document.querySelector('#container');
+
 
         board.forEach(function(item, index, array){
-            squareDiv = document.createElement("div");
-            squareDiv.setAttribute("id", "squareDiv");
+            item.forEach(function(subitem, subindex, subarray){
+                
+
+                squareDiv = document.createElement("div");
+                squareDiv.setAttribute("id", `squareDiv${index}${subindex}`);
+                squareDiv.textContent = subitem;
+                // console.log(squareDiv);
+
+                renderRow(squareDiv);
+
+                render(firstRow);
+                render(secondRow);
+                render(thirdRow);
+
+            });
         });
 
+        
 
     })();
+
+    function renderRow(div){
+
+
+
+        if (div.getAttribute("id") == "squareDiv00" || div.getAttribute("id") == "squareDiv01" || div.getAttribute("id") == "squareDiv02"){
+            firstRow.appendChild(div);
+        }
+        else if(div.getAttribute("id") == "squareDiv10" || div.getAttribute("id") == "squareDiv11" || div.getAttribute("id") == "squareDiv12"){
+            secondRow.appendChild(div);
+        }
+        else {
+            thirdRow.appendChild(div);
+        }
+
+
+
+    }
+
+    function render(div) {
+
+        const container = document.querySelector('#container');
+
+        container.appendChild(div);
+    }
 
     // playerArr.forEach(function(item, index, array){
     //     console.log(item);
     // })
 
 
-return {board, playerArr};
+return {board, playerArr, render};
 })();
+
 
 
 
