@@ -1,12 +1,26 @@
 
 const Player = (name, mark, isActive= false) => {
-    const sayName = () => console.log(`my name is ${name} and my mark is ${mark}.`);
 
-    const toggle = () => {
-        isActive = !isActive;
+    let state = {
+        name,
+        mark,
+        isActive,
     }
+    
 
-    return {name, mark, isActive, sayName};
+    // const toggle = () => {
+    //     isActive = !isActive;
+    //     console.log(isActive);
+        
+    // }
+
+    // return {name, mark, isActive, toggle(){ isActive = !isActive; }};
+    return {
+        get name(){ return state.name; },
+        get mark(){ return state.mark },
+        get isActive(){ return state.isActive },
+        toggle(){ state.isActive = !state.isActive; }
+    }
 };
 
 
@@ -22,8 +36,8 @@ const game = (() => {
     let squareDiv;
 
     const playerArr = [
-        Player("raman", "X"),
-        Player("namar", "O")
+        Player("raman", "X", true),
+        Player("namar", "O", false)
     ];
 
 
@@ -33,9 +47,13 @@ const game = (() => {
         (["O", "X", "O"])
     ]
 
+        // console.log(playerArr[0].isActive);
+        // playerArr[0].toggle();
+        // console.log(playerArr[0].isActive);
 
 
     const displayController =(() => {
+
         // DOM Manipulation stuff goes here, refer to ODIN lesson if you forget
         // Appending probably goes in the render function, just worry about DOM creation first
         // createBoard is returned making it available to use, can use it here for DOM
@@ -46,25 +64,34 @@ const game = (() => {
 
 
 
-        gameBoard.forEach(function(item, index, array){
-            item.forEach(function(subitem, subindex, subarray){
+        // gameBoard.forEach(function(item, index, array){
+        //     item.forEach(function(subitem, subindex, subarray){
                 
 
-                squareDiv = document.createElement("div");
-                squareDiv.setAttribute("id", `squareDiv${index}${subindex}`);
-                squareDiv.textContent = subitem;
-                // console.log(squareDiv);
+        //         squareDiv = document.createElement("div");
+        //         squareDiv.setAttribute("id", `squareDiv${index}${subindex}`);
+        //         squareDiv.textContent = subitem;
+        // //         // console.log(squareDiv);
 
-                squareDiv.addEventListener('click', placeMarker);
+        //         // squareDiv.addEventListener('click', placeMarker);
 
-                renderRow(squareDiv);
+        // //         renderRow(squareDiv);
 
-                render(firstRow);
-                render(secondRow);
-                render(thirdRow);
+        // //         render(firstRow);
+        // //         render(secondRow);
+        // //         render(thirdRow);
+        
 
-            });
-        });
+        //     });
+        // });
+
+
+
+        const container = document.querySelector('#container');
+
+        render();
+
+        
 
         
 
@@ -72,35 +99,79 @@ const game = (() => {
 
     function placeMarker(e){
 
-        const location = e.target.getAttribute(`id`).slice(9).split("");
-        gameBoard[location[0]][location[1]] = "X";
+        if (playerArr[0].isActive == true){
+            const location = e.target.getAttribute(`id`).slice(9).split("");
+            gameBoard[location[0]][location[1]] = playerArr[0].mark;
+            playerArr[0].toggle();
+            playerArr[1].toggle();
+            console.log("player 1 "+playerArr[0].isActive);
+            console.log("player 2 "+playerArr[1].isActive);
+        }
+        else if(playerArr[1].isActive == true) {
+            const location = e.target.getAttribute(`id`).slice(9).split("");
+            gameBoard[location[0]][location[1]] = playerArr[1].mark;
+            playerArr[1].toggle();
+            playerArr[0].toggle();
+            console.log("player 1 "+playerArr[0].isActive);
+            console.log("player 2 "+playerArr[1].isActive);
+        }
+
+        console.log(gameBoard);
+
+        render();
+
         
         
     }
 
-    function renderRow(div){
+    // function renderRow(div){
 
 
 
-        if (div.getAttribute("id") == "squareDiv00" || div.getAttribute("id") == "squareDiv01" || div.getAttribute("id") == "squareDiv02"){
-            firstRow.appendChild(div);
-        }
-        else if(div.getAttribute("id") == "squareDiv10" || div.getAttribute("id") == "squareDiv11" || div.getAttribute("id") == "squareDiv12"){
-            secondRow.appendChild(div);
-        }
-        else {
-            thirdRow.appendChild(div);
-        }
+    //     // if (div.getAttribute("id") == "squareDiv00" || div.getAttribute("id") == "squareDiv01" || div.getAttribute("id") == "squareDiv02"){
+    //     //     firstRow.appendChild(div);
+    //     // }
+    //     // else if(div.getAttribute("id") == "squareDiv10" || div.getAttribute("id") == "squareDiv11" || div.getAttribute("id") == "squareDiv12"){
+    //     //     secondRow.appendChild(div);
+    //     // }
+    //     // else {
+    //     //     thirdRow.appendChild(div);
+    //     // }
 
 
 
-    }
+    // }
 
-    function render(div) {
+    function render() {
 
-        const container = document.querySelector('#container');
 
-        container.appendChild(div);
+        gameBoard.forEach(function(item, index, array){
+            item.forEach(function(subitem, subindex, subarray){
+                squareDiv = document.createElement("div");
+                squareDiv.setAttribute("id", `squareDiv${index}${subindex}`);
+                squareDiv.textContent = subitem;
+                
+                squareDiv.addEventListener('click', placeMarker);
+                
+
+                if (squareDiv.getAttribute("id") == "squareDiv00" || squareDiv.getAttribute("id") == "squareDiv01" || squareDiv.getAttribute("id") == "squareDiv02"){
+                    firstRow.appendChild(squareDiv);
+                }
+                else if(squareDiv.getAttribute("id") == "squareDiv10" || squareDiv.getAttribute("id") == "squareDiv11" || squareDiv.getAttribute("id") == "squareDiv12"){
+                    secondRow.appendChild(squareDiv);
+                }
+                else if (squareDiv.getAttribute("id") == "squareDiv20" || squareDiv.getAttribute("id") == "squareDiv21" || squareDiv.getAttribute("id") == "squareDiv22"){
+                    thirdRow.appendChild(squareDiv);
+                }
+
+
+                container.appendChild(firstRow);
+                container.appendChild(secondRow);
+                container.appendChild(thirdRow);
+            });
+        });
+
+        // container.appendChild(div);
     }
 
     // playerArr.forEach(function(item, index, array){
