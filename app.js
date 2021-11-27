@@ -9,14 +9,16 @@ const Player = (name, mark, isActive= false) => {
     
     return {
         get name(){ return state.name; },
-        get mark(){ return state.mark },
-        get isActive(){ return state.isActive },
+        get mark(){ return state.mark; },
+        get isActive(){ return state.isActive; },
         toggle(){ state.isActive = !state.isActive; }
     }
 };
 
 
 const game = (() => {
+
+    let count = 0;
 
 
 
@@ -47,6 +49,7 @@ const game = (() => {
             const location = e.target.getAttribute(`id`).slice(9).split("");
             if (gameBoard[location[0]][location[1]] == " " || (gameBoard[location[0]][location[1]] != playerArr[1].mark)) {
                 gameBoard[location[0]][location[1]] = playerArr[0].mark;
+                count += 1;
                 playerArr[0].toggle();
                 playerArr[1].toggle();
                 console.log("player 1 "+playerArr[0].isActive);
@@ -62,6 +65,7 @@ const game = (() => {
             const location = e.target.getAttribute(`id`).slice(9).split("");
             if (gameBoard[location[0]][location[1]] == " " || (gameBoard[location[0]][location[1]] != playerArr[0].mark)){
                 gameBoard[location[0]][location[1]] = playerArr[1].mark;
+                count += 1;
                 playerArr[1].toggle();
                 playerArr[0].toggle();
                 console.log("player 1 "+playerArr[0].isActive);
@@ -73,12 +77,76 @@ const game = (() => {
         }
 
         console.log(gameBoard);
+        // console.log(count);
         clearBoard();
-
         render();
+        gameOver();
+        
 
         
         
+    }
+
+    function gameOver(){
+
+        // console.log(gameBoard);
+
+        if (gameBoard[0][0] == playerArr[0].mark && gameBoard[1][0] == playerArr[0].mark && gameBoard[2][0] == playerArr[0].mark ){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[0][0] == playerArr[0].mark && gameBoard[0][1] == playerArr[0].mark && gameBoard[0][2] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[1][0] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[1][2] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[2][0] == playerArr[0].mark && gameBoard[2][1] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[0][1] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][1] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[0][2] == playerArr[0].mark && gameBoard[1][2] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[0][2] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][0] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else if (gameBoard[0][0] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
+            console.log(`${playerArr[0].name} wins`);
+        }
+        else {
+            if (gameBoard[0][0] == playerArr[1].mark && gameBoard[1][0] == playerArr[1].mark && gameBoard[2][0] == playerArr[1].mark ){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[0][0] == playerArr[1].mark && gameBoard[0][1] == playerArr[1].mark && gameBoard[0][2] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[1][0] == playerArr[1].mark&& gameBoard[1][1] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[2][0] == playerArr[1].mark && gameBoard[2][1] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[0][1] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][1] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[0][2] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[0][2] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][0] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+            else if (gameBoard[0][0] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
+                console.log(`${playerArr[1].name} wins`);
+            }
+        }
+
+        if (count == 9){
+            console.log("tie game");
+        }
+
+       
     }
 
     function clearBoard(){
