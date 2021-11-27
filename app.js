@@ -26,14 +26,7 @@ const Player = (name, mark, isActive= false) => {
 
 const game = (() => {
 
-    const firstRow = document.createElement('div');
-    firstRow.setAttribute("id", "firstRow");
-    const secondRow = document.createElement('div');
-    secondRow.setAttribute("id", "secondRow");
-    const thirdRow = document.createElement('div');
-    thirdRow.setAttribute("id", "thirdRow");
 
-    let squareDiv;
 
     const playerArr = [
         Player("raman", "X", true),
@@ -87,9 +80,11 @@ const game = (() => {
 
 
 
-        const container = document.querySelector('#container');
+        
+        
 
         render();
+
 
         
 
@@ -98,6 +93,7 @@ const game = (() => {
     })();
 
     function placeMarker(e){
+
 
         if (playerArr[0].isActive == true){
             const location = e.target.getAttribute(`id`).slice(9).split("");
@@ -117,11 +113,22 @@ const game = (() => {
         }
 
         console.log(gameBoard);
+        clearBoard();
 
         render();
 
         
         
+    }
+
+    function clearBoard(){
+        let parent = document.querySelector("#container");
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+            console.log("hi");
+        }
+
+        // render();
     }
 
     // function renderRow(div){
@@ -144,6 +151,16 @@ const game = (() => {
 
     function render() {
 
+        let firstRow = document.createElement('div');
+        firstRow.setAttribute("id", "firstRow");
+        let secondRow = document.createElement('div');
+        secondRow.setAttribute("id", "secondRow");
+        let thirdRow = document.createElement('div');
+        thirdRow.setAttribute("id", "thirdRow");
+    
+        let squareDiv;
+        const container = document.querySelector('#container');
+
 
         gameBoard.forEach(function(item, index, array){
             item.forEach(function(subitem, subindex, subarray){
@@ -164,10 +181,10 @@ const game = (() => {
                     thirdRow.appendChild(squareDiv);
                 }
 
-
                 container.appendChild(firstRow);
                 container.appendChild(secondRow);
                 container.appendChild(thirdRow);
+
             });
         });
 
