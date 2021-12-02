@@ -18,7 +18,6 @@ const Player = (name, mark, isActive= false) => {
 
 const game = (() => {
 
-    let count = 0;
 
 
 
@@ -49,11 +48,10 @@ const game = (() => {
             const location = e.target.getAttribute(`id`).slice(9).split("");
             if (gameBoard[location[0]][location[1]] == " " || (gameBoard[location[0]][location[1]] != playerArr[1].mark)) {
                 gameBoard[location[0]][location[1]] = playerArr[0].mark;
-                count += 1;
                 playerArr[0].toggle();
                 playerArr[1].toggle();
-                console.log("player 1 "+playerArr[0].isActive);
-                console.log("player 2 "+playerArr[1].isActive);
+                // console.log("player 1 "+playerArr[0].isActive);
+                // console.log("player 2 "+playerArr[1].isActive);
 
             }
             else {
@@ -65,11 +63,10 @@ const game = (() => {
             const location = e.target.getAttribute(`id`).slice(9).split("");
             if (gameBoard[location[0]][location[1]] == " " || (gameBoard[location[0]][location[1]] != playerArr[0].mark)){
                 gameBoard[location[0]][location[1]] = playerArr[1].mark;
-                count += 1;
                 playerArr[1].toggle();
                 playerArr[0].toggle();
-                console.log("player 1 "+playerArr[0].isActive);
-                console.log("player 2 "+playerArr[1].isActive);
+                // console.log("player 1 "+playerArr[0].isActive);
+                // console.log("player 2 "+playerArr[1].isActive);
             }
             else {
 
@@ -77,7 +74,6 @@ const game = (() => {
         }
 
         console.log(gameBoard);
-        // console.log(count);
         clearBoard();
         render();
         gameOver();
@@ -89,64 +85,96 @@ const game = (() => {
 
     function gameOver(){
 
+        let p1Win = false;
+        let p2Win = false;
+        let fullBoard = 0;
+
         // console.log(gameBoard);
 
         if (gameBoard[0][0] == playerArr[0].mark && gameBoard[1][0] == playerArr[0].mark && gameBoard[2][0] == playerArr[0].mark ){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[0][0] == playerArr[0].mark && gameBoard[0][1] == playerArr[0].mark && gameBoard[0][2] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[1][0] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[1][2] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[2][0] == playerArr[0].mark && gameBoard[2][1] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[0][1] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][1] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[0][2] == playerArr[0].mark && gameBoard[1][2] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[0][2] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][0] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else if (gameBoard[0][0] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
             console.log(`${playerArr[0].name} wins`);
+            p1Win = true; 
         }
         else {
             if (gameBoard[0][0] == playerArr[1].mark && gameBoard[1][0] == playerArr[1].mark && gameBoard[2][0] == playerArr[1].mark ){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
             else if (gameBoard[0][0] == playerArr[1].mark && gameBoard[0][1] == playerArr[1].mark && gameBoard[0][2] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
-            else if (gameBoard[1][0] == playerArr[1].mark&& gameBoard[1][1] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark){
+            else if (gameBoard[1][0] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
             else if (gameBoard[2][0] == playerArr[1].mark && gameBoard[2][1] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
             else if (gameBoard[0][1] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][1] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
             else if (gameBoard[0][2] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
             else if (gameBoard[0][2] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][0] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
             else if (gameBoard[0][0] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
                 console.log(`${playerArr[1].name} wins`);
+                p2Win = true;
             }
+
+            console.log(`in function:${p1Win}`);
+
         }
 
-        if (count == 9){
+        gameBoard.forEach(function(item, array, index){
+            item.forEach(function(subitem, subarray, subindex){
+                if (subitem == playerArr[0].mark || subitem == playerArr[1].mark){
+                    fullBoard += 1;
+                }
+            });
+        });
+
+        console.log(`fullBoard:${fullBoard}`);
+
+        if (p1Win == false && p2Win == false && fullBoard == 9){
             console.log("tie game");
         }
-
-       
+ 
     }
 
     function clearBoard(){
@@ -159,6 +187,7 @@ const game = (() => {
 
 
     function render() {
+
 
         let firstRow = document.createElement('div');
         firstRow.setAttribute("id", "firstRow");
@@ -193,6 +222,8 @@ const game = (() => {
                 container.appendChild(firstRow);
                 container.appendChild(secondRow);
                 container.appendChild(thirdRow);
+
+
 
             });
         });
