@@ -37,9 +37,16 @@ const game = (() => {
 
     const displayController =(() => { 
 
-        render();   
+        render();
+
 
     })();
+
+    function resetBoard(){
+
+        window.location.reload();
+
+    }
 
     function placeMarker(e){
 
@@ -157,7 +164,7 @@ const game = (() => {
                 p2Win = true;
             }
 
-            console.log(`in function:${p1Win}`);
+            // console.log(`in function:${p1Win}`);
 
         }
 
@@ -186,6 +193,7 @@ const game = (() => {
 
 
 
+
     function render() {
 
 
@@ -197,6 +205,9 @@ const game = (() => {
         thirdRow.setAttribute("id", "thirdRow");
     
         let squareDiv;
+
+        const resetBtn = document.querySelector('#resetBtn');
+
         const container = document.querySelector('#container');
 
 
@@ -219,9 +230,13 @@ const game = (() => {
                     thirdRow.appendChild(squareDiv);
                 }
 
+
                 container.appendChild(firstRow);
                 container.appendChild(secondRow);
                 container.appendChild(thirdRow);
+
+
+                resetBtn.addEventListener('click', resetBoard);
 
 
 
