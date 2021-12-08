@@ -20,11 +20,13 @@ const game = (() => {
 
     let player1;
     let player2;
+    let p1Win = false;
+    let p2Win = false;
 
 
     const playerArr = [
-        Player("raman", "X", true),
-        Player("namar", "O", false)
+        Player("player1", "X", true),
+        Player("player2", "O", false)
     ];
 
 
@@ -77,16 +79,10 @@ const game = (() => {
         clearBoard();
         render();
         gameOver();
-        
-
-        
-        
     }
 
     function gameOver(){
 
-        let p1Win = false;
-        let p2Win = false;
         let fullBoard = 0;
 
 
@@ -94,82 +90,98 @@ const game = (() => {
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[0][0] == playerArr[0].mark && gameBoard[0][1] == playerArr[0].mark && gameBoard[0][2] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[1][0] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[1][2] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[2][0] == playerArr[0].mark && gameBoard[2][1] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[0][1] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][1] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[0][2] == playerArr[0].mark && gameBoard[1][2] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[0][2] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][0] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else if (gameBoard[0][0] == playerArr[0].mark && gameBoard[1][1] == playerArr[0].mark && gameBoard[2][2] == playerArr[0].mark){
 
             p1Win = true; 
             winnerMessage(p1Win, p2Win, fullBoard);
+
         }
         else {
             if (gameBoard[0][0] == playerArr[1].mark && gameBoard[1][0] == playerArr[1].mark && gameBoard[2][0] == playerArr[1].mark ){
  
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[0][0] == playerArr[1].mark && gameBoard[0][1] == playerArr[1].mark && gameBoard[0][2] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[1][0] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[2][0] == playerArr[1].mark && gameBoard[2][1] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[0][1] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][1] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[0][2] == playerArr[1].mark && gameBoard[1][2] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[0][2] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][0] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
             else if (gameBoard[0][0] == playerArr[1].mark && gameBoard[1][1] == playerArr[1].mark && gameBoard[2][2] == playerArr[1].mark){
 
                 p2Win = true;
                 winnerMessage(p1Win, p2Win, fullBoard);
+
             }
 
         }
@@ -190,7 +202,7 @@ const game = (() => {
     }
 
     function clearBoard(){
-        let parent = document.querySelector("#container");
+        let parent = document.querySelector("#gameContainer");
         while (parent.firstChild) {
             parent.removeChild(parent.firstChild);
         }
@@ -254,7 +266,7 @@ const game = (() => {
 
         const resetBtn = document.querySelector('#resetBtn');
 
-        const container = document.querySelector('#container');
+        const gameContainer = document.querySelector('#gameContainer');
 
 
         gameBoard.forEach(function(item, index, array){
@@ -262,8 +274,11 @@ const game = (() => {
                 squareDiv = document.createElement("div");
                 squareDiv.setAttribute("id", `squareDiv${index}${subindex}`);
                 squareDiv.textContent = subitem;
+
+                if (p1Win == false && p2Win == false){
+                    squareDiv.addEventListener('click', placeMarker);
+                }
                 
-                squareDiv.addEventListener('click', placeMarker);
                 
 
                 if (squareDiv.getAttribute("id") == "squareDiv00" || squareDiv.getAttribute("id") == "squareDiv01" || squareDiv.getAttribute("id") == "squareDiv02"){
@@ -277,9 +292,9 @@ const game = (() => {
                 }
 
 
-                container.appendChild(firstRow);
-                container.appendChild(secondRow);
-                container.appendChild(thirdRow);
+                gameContainer.appendChild(firstRow);
+                gameContainer.appendChild(secondRow);
+                gameContainer.appendChild(thirdRow);
 
 
                 resetBtn.addEventListener('click', resetBoard);
@@ -292,7 +307,7 @@ const game = (() => {
 
 
 
-// return {gameBoard, playerArr, render};
+return {gameBoard, playerArr};
 })();
 
 

@@ -1,0 +1,84 @@
+body{
+    background-color: rgb(131, 40, 131);
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 200px;
+}
+#gameContainer{
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+#firstRow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+#secondRow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+#thirdRow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+#squareDiv00, #squareDiv01, #squareDiv02, #squareDiv10, #squareDiv11, #squareDiv12, 
+#squareDiv20, #squareDiv21, #squareDiv22 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    width: 130px;
+    padding: 10px;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+#squareDiv00, #squareDiv01, #squareDiv10, #squareDiv11 {
+    border-right: 5px solid rgb(212, 186, 37);;
+    border-bottom: 5px solid rgb(212, 186, 37);;
+}
+
+#squareDiv02, #squareDiv12 {
+    border-right: 5px solid rgb(212, 186, 37);;
+}
+#squareDiv20, #squareDiv21{
+    border-bottom: 5px solid rgb(212, 186, 37);;
+}
+
+#display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: rgb(212, 186, 37);
+}
+#resetBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 80px;
+    border-radius: 8px;
+    background-color: rgb(104, 104, 224);
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+}

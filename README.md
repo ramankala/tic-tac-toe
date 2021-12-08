@@ -6,7 +6,10 @@ A Tic Tac Toe web application in which the user can play the game Tic Tac Toe.  
 
 <h2>Skills Demonstrated</h2>
 
-The skills I will demonstrate by completing this project will be a thorough understanding of factory functions and modular functions, their use cases and when it's advantageous to use them.  This project will build the foundation for my understanding and application of Prototypal Inheritance as opposed to the Classical Inheritance method that was used in the Library App.
+The skills I will demonstrate by completing this project will be a thorough understanding of factory functions and modular functions, their use cases and when it's advantageous to use them.  This project will build the foundation for my understanding and application of Prototypal inheritance as opposed to the Classical inheritance method that was used in the Library App.
 
 <h2>Self- Reflection Post-Completion</h2>
+
+This project gave me great depth of experience creating objects using factory functions and modular functions, and designing an entire application using Prototypal inheritance.  I initially struggled with grasping with the concepts, however after dedicating some time I started to understand how to apply the syntax in order to do the things I'd like to do.  Classical inheritance and Prototypal inheritance both have their advantages, such as Protoypal Inheritance being better suited since it's dynamic.  On the other hand, object creation is much faster using the Classical inheritance method.
+
 <h2>Live Demo</h2>
